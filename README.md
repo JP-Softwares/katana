@@ -52,3 +52,103 @@ Frustrado pela falta de ferramentas simples e acessíveis, pediu ajuda ao filho.
 
 ---
 
+## – Fluxo de Trabalho e Governança de Código  
+
+> As regras a seguir garantem que o **Katana** cresça de forma organizada, previsível e auditável.  
+
+---
+
+###  Política de Commits  
+
+| Regra | Detalhe |
+|-------|---------|
+| **Idioma** | Inglês |
+| **Formato** | Linha única, concisa, verbo no imperativo, iniciando em maiúscula.<br>Ex.:<br>`git commit -m "Create home screen"` |
+| **Autores** | Se houver mais de um autor, use `--author` ou `-s` (Signed-off-by) para registrar todas as assinaturas.<br>Ex.:<br>`git commit -s -m "Refactor booking service"` |
+
+---
+
+### Política de Branches  
+
+| Branch | Propósito | Pode receber commits diretos? |
+|--------|-----------|-------------------------------|
+| **main** | Versão estável em produção | ❌ |
+| **develop** | Integração contínua / próxima release | ❌ |
+
+1. Todo desenvolvimento parte de **develop**.  
+2. Nunca faça `push` direto em **main** ou **develop**; abra um **Pull Request**.  
+3. O PR é aceito se:  
+   - *Build* do **GitHub Actions** estiver verde (backend + frontend + testes + lints).  
+   - Análise estática do **SonarCloud** atingir cobertura & qualidade acordadas.  
+   - For revisado por **pelo menos um dev** que não seja o autor.
+
+---
+
+### Padrões para Criação de Branches (GitFlow)  
+
+| Tipo | Prefixo | Exemplo |
+|------|---------|---------|
+| **Caso de Uso** | `feature/UC_` | `feature/UC_RegisterCustomer` |
+| **História de Usuário** | `feature/US_` | `feature/US_BarberEarnCommission` |
+| **Correção / Configuração** | `fix/` | `fix/FIX_DockerCompose` |
+| **Issue Genérica** | `issue/NN_` | `issue/08_FixConnectionWithDatabase` |
+
+Todas devem derivar de **develop**.
+
+---
+
+### Política de Aprovação  
+
+1. **CI obrigatório**: o PR é bloqueado se qualquer *job* falhar.  
+2. **Code review obrigatório**: outro membro da equipe deve aprovar.  
+3. **Padrões de estilo**: Prettier (frontend) e Spotless (backend) são executados na pipeline – quebras rejeitam o PR.  
+
+---
+
+### Versionamento de Código  
+
+Utilizamos **Semantic Versioning 2.0.0**:  
+
+MAJOR.MINOR.PATCH
+
+yaml
+Copiar
+Editar
+
+| Dígito | Quando incrementar |
+|--------|--------------------|
+| **MAJOR** | Mudanças incompatíveis de API |
+| **MINOR** | Novas funcionalidades retro-compatíveis |
+| **PATCH** | Correções retro-compatíveis |
+
+Versões são marcadas com tags Git: `v1.4.2`.
+
+---
+
+## – Repositório de Documentação  
+
+- Toda documentação viva reside na **Wiki do GitHub**.  
+- Commits seguem as mesmas regras da Seção 4.1.  
+- Documentos permanecem na branch **main** da Wiki; não há ramificações paralelas.
+
+###  Versionamento de Documentos  
+
+MAJOR.MINOR
+
+yaml
+Copiar
+Editar
+
+| Alteração | Ação |
+|-----------|------|
+| Ajuste menor / revisão ortográfica | `+MINOR` |
+| Conteúdo novo significativo | `+MAJOR` |
+
+---
+
+## – Monitoramento & Governança  
+
+A **equipe de gestão do Katana** supervisiona o cumprimento destas normas. Ela pode:  
+
+- Vetar ou excluir conteúdo fora do padrão.  
+- Auxiliar novos contribuidores.  
