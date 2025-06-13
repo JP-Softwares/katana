@@ -29,13 +29,6 @@ public class AuthController {
         this.clienteService = clienteService;
     }
 
-    // Cadastro de novo cliente
-    @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody Cliente dto) {
-        Cliente criado = clienteService.register(dto);
-        criado.setSenha(null);
-        return ResponseEntity.ok(criado);
-    }
 
     // Login com email e senha
     @PostMapping("/login")

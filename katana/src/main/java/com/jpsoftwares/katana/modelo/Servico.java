@@ -46,4 +46,8 @@ public class Servico {
     )
     @Builder.Default
     private Set<Agendamento> agendamentos = new HashSet<>();
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "empresa_id")
+    private Empresa empresa;
 }

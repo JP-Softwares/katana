@@ -48,4 +48,8 @@ public class Profissional {
     @Builder.Default
     private Set<Servico> servicos = new HashSet<>();
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cargo_id")
+    private Cargo cargo;
+
 }

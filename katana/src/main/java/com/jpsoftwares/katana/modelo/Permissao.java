@@ -13,7 +13,6 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 @Getter
-@Setter
 public class Permissao {
 
     @Id
@@ -27,7 +26,7 @@ public class Permissao {
     private String path;
 
     // Lado inverso do Many-to-Many
-    @ManyToMany(mappedBy = "permissao")
+    @ManyToMany(mappedBy = "permissoes")
     @Builder.Default
     private Set<Cargo> cargos = new HashSet<>();
 }
