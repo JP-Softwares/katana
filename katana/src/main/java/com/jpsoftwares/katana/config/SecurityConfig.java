@@ -35,7 +35,10 @@ public class SecurityConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeHttpRequests()
-                .anyRequest().permitAll(); // Libera TUDO (temporário)
+                .anyRequest().permitAll()
+                .and()
+                .userDetailsService(userDetailsService)
+                .httpBasic();
 
         return http.build();
     }
