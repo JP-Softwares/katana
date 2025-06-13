@@ -13,9 +13,11 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-@Configuration
-@EnableWebSecurity
+
+@Configuration                   // <— torna esta classe um @Configuration
+@EnableWebSecurity               // <— habilita as configurações de web security
 public class SecurityConfig {
+
     private final ClienteDetailsService userDetailsService;
     private final PasswordEncoder passwordEncoder;
 
@@ -33,13 +35,15 @@ public class SecurityConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeHttpRequests()
-                .requestMatchers("/api/auth/**").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .userDetailsService(userDetailsService)
-                .httpBasic();
+                .anyRequest().permitAll(); // Libera TUDO (temporário)
 
         return http.build();
+    }
+
+    // Expondo o AuthenticationManager para o AuthController
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
+        return authConfig.getAuthenticationManager();
     }
 
     @Bean
@@ -49,9 +53,5 @@ public class SecurityConfig {
                 .passwordEncoder(passwordEncoder)
                 .and()
                 .build();
-    }
-    @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
-        return authConfig.getAuthenticationManager();
     }
 }
