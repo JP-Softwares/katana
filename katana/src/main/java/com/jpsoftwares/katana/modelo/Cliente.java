@@ -1,5 +1,6 @@
 package com.jpsoftwares.katana.modelo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import java.util.ArrayList;
