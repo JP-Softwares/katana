@@ -31,7 +31,6 @@ public class SecurityFilter extends OncePerRequestFilter {
         if(token != null){
             var login = tokenService.validateToken(token);
             UserDetails profissional = profissionalService.findByLogin(login);
-
             var authentication = new UsernamePasswordAuthenticationToken(profissional, null, profissional.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }

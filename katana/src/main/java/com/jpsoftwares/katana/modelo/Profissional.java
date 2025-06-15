@@ -46,7 +46,7 @@ public class Profissional implements UserDetails {
 
     // Mapeamento Many-to-One para Empresa
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "empresa_id", nullable = false)
+    @JoinColumn(name = "empresa_id")
     private Empresa empresa;
 
     // One-to-Many para Serviços
@@ -63,12 +63,13 @@ public class Profissional implements UserDetails {
     @JoinColumn(name = "cargo_id")
     private Cargo cargo;
 
-    public Profissional(String nome, String email, String senha, Roles role, String telefone) {
+    public Profissional(String nome, String email, String senha, Roles role, String telefone, Boolean ativo) {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
         this.role = role;
         this.telefone = telefone;
+        this.ativo = ativo;
     }
 
 
