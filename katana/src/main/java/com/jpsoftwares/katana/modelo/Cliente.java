@@ -4,9 +4,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
 @Table(name = "cliente")
@@ -32,6 +35,8 @@ public class Cliente {
     @Builder.Default
     private Boolean ativo = true;
 
+
+
     // Mapeamento One-to-Many para Agendamentos
     @OneToMany(
         mappedBy = "cliente",
@@ -50,4 +55,6 @@ public class Cliente {
     )
     @Builder.Default
     private List<Venda> vendas = new ArrayList<>();
+
+
 }

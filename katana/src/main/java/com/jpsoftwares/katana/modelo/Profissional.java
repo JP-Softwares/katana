@@ -1,10 +1,15 @@
 package com.jpsoftwares.katana.modelo;
 
+import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
 @Table(name = "profissional")
@@ -14,7 +19,7 @@ import lombok.*;
 @Builder
 @Getter
 @Setter
-public class Profissional {
+public class Profissional implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,6 +30,12 @@ public class Profissional {
 
     @Column(nullable = false, unique = true, length = 150)
     private String email;
+
+    @Column(nullable = false)
+    private String senha;
+
+    @Column
+    private Roles role;
 
     @Column(nullable = false, length = 20)
     private String telefone;
@@ -51,5 +62,41 @@ public class Profissional {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cargo_id")
     private Cargo cargo;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        if(this.role == Roles.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
+        else return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+    }
+
+    @Override
+    public String getPassword() {
+        return senha;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return UserDetails.super.isAccountNonExpired();
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return UserDetails.super.isAccountNonLocked();
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return UserDetails.super.isCredentialsNonExpired();
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return UserDetails.super.isEnabled();
+    }
 
 }
