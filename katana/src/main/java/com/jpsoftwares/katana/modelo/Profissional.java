@@ -63,6 +63,15 @@ public class Profissional implements UserDetails {
     @JoinColumn(name = "cargo_id")
     private Cargo cargo;
 
+    public Profissional(String nome, String email, String senha, Roles role, String telefone) {
+        this.nome = nome;
+        this.email = email;
+        this.senha = senha;
+        this.role = role;
+        this.telefone = telefone;
+    }
+
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if(this.role == Roles.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));

@@ -37,11 +37,6 @@ public class ProfissionalController {
         return ResponseEntity.ok(profissional);
     }
 
-    @PostMapping
-    public ResponseEntity<Profissional> create(@RequestBody Profissional profissional) {
-        Profissional created = profissionalService.create(profissional);
-        return ResponseEntity.ok(created);
-    }
 
     @PutMapping
     public ResponseEntity<Profissional> update(@RequestBody Profissional profissional) {
