@@ -4,6 +4,7 @@ package com.jpsoftwares.katana.controller;
 import com.jpsoftwares.katana.DTO.AuthDTO.AuthenticationDTO;
 import com.jpsoftwares.katana.DTO.AuthDTO.LoginResponseDTO;
 import com.jpsoftwares.katana.DTO.ProfissionalDTO.CreateProfissionalDTO;
+import com.jpsoftwares.katana.DTO.ProfissionalDTO.ReturnProfissionalDTO;
 import com.jpsoftwares.katana.config.TokenService;
 import com.jpsoftwares.katana.modelo.Profissional;
 import com.jpsoftwares.katana.service.ProfissionalService;
@@ -13,11 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @Tag(name = "Autenticação")
@@ -49,5 +48,23 @@ public class AuthenticationController {
         Profissional profissional = new Profissional(data.nome(), data.email(), senhaSecreta, data.role(), data.telefone(), true);
         this.profissionalService.create(profissional);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<ReturnProfissionalDTO> me(Authentication authentication){
+        String email = authentication.getName();
+
+        // 2) Buscar a entidade Profissional
+        Profissional prof = (Profissional) profissionalService.findByLogin(email);
+
+        // 3) Mapear para DTO
+        ReturnProfissionalDTO dto = new ReturnProfissionalDTO(
+                prof.getId(),
+                prof.getNome(),
+                prof.getEmail(),
+                prof.getRole(),
+                "Profissional"
+        );
+        return ResponseEntity.ok(dto);
     }
 }
