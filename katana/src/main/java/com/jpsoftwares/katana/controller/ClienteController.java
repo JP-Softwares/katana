@@ -59,10 +59,8 @@ public class ClienteController {
         Cliente salvo = clienteService.create(entidade);
 
         // 3) Converter entidade salva em DTO de resposta
-        ClienteResponseDTO resposta = new ClienteResponseDTO();
-        resposta.setId(salvo.getId());
-        resposta.setNome(salvo.getNome());
-        resposta.setEmail(salvo.getEmail());
+        ClienteResponseDTO resposta = new ClienteResponseDTO(salvo.getId(),salvo.getNome(), salvo.getEmail());
+
 
         // 4) Retornar 200 OK com o DTO
         return ResponseEntity.ok(resposta);
