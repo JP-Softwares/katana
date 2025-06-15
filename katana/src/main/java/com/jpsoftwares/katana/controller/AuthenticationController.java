@@ -37,9 +37,9 @@ public class AuthenticationController {
     public ResponseEntity login(@RequestBody @Valid AuthenticationDTO data){
         var userSenha = new UsernamePasswordAuthenticationToken(data.login(), data.password());
         var auth = this.authenticationManager.authenticate(userSenha);
-
         var token = tokenService.generateToken((Profissional) auth.getPrincipal());
-        return ResponseEntity.ok(new LoginResponseDTO(token));
+        Profissional profissional = (Profissional) profissionalService.findByLogin(data.login());
+        return ResponseEntity.ok(new LoginResponseDTO(token, profissional.getId(), "Profissional", profissional.getRole()));
     }
 
     @PostMapping("/register")
