@@ -2,7 +2,9 @@ package com.jpsoftwares.katana.controller;
 
 
 import com.jpsoftwares.katana.DTO.AuthDTO.AuthenticationDTO;
+import com.jpsoftwares.katana.DTO.AuthDTO.LoginResponseDTO;
 import com.jpsoftwares.katana.DTO.ProfissionalDTO.CreateProfissionalDTO;
+import com.jpsoftwares.katana.config.TokenService;
 import com.jpsoftwares.katana.modelo.Profissional;
 import com.jpsoftwares.katana.service.ProfissionalService;
 import jakarta.validation.Valid;
@@ -26,12 +28,16 @@ public class AuthenticationController {
     @Autowired
     private ProfissionalService profissionalService;
 
+    @Autowired
+    private TokenService tokenService;
+
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody @Valid AuthenticationDTO data){
         var userSenha = new UsernamePasswordAuthenticationToken(data.login(), data.password());
         var auth = this.authenticationManager.authenticate(userSenha);
 
-        return ResponseEntity.ok().build();
+        var token = tokenService.generateToken((Profissional) auth.getPrincipal());
+        return ResponseEntity.ok(new LoginResponseDTO(token));
     }
 
     @PostMapping("/Register")

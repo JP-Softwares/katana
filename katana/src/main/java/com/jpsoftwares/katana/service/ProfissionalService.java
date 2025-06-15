@@ -51,7 +51,7 @@ public class ProfissionalService {
         return true;
     }
 
-    public UserDetails findByLogin(Profissional profissional){
-        return profissionalRepository.findByEmail(profissional.getEmail());
+    public UserDetails findByLogin(String login){
+        return profissionalRepository.findByEmail(login);
     }
 }
