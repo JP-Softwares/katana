@@ -2,7 +2,7 @@ package com.jpsoftwares.katana.controller;
 
 import com.jpsoftwares.katana.DTO.ClienteDTO.ClienteCreateDTO;
 import com.jpsoftwares.katana.DTO.ClienteDTO.ClienteResponseDTO;
-import com.jpsoftwares.katana.modelo.Cliente;
+import com.jpsoftwares.katana.model.Cliente;
 import com.jpsoftwares.katana.service.ClienteService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;

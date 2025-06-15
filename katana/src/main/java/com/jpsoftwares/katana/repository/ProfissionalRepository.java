@@ -1,7 +1,6 @@
 package com.jpsoftwares.katana.repository;
 
-import com.jpsoftwares.katana.modelo.Produto;
-import com.jpsoftwares.katana.modelo.Profissional;
+import com.jpsoftwares.katana.model.Profissional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 

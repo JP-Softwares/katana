@@ -1,6 +1,6 @@
 package com.jpsoftwares.katana.service;
 
-import com.jpsoftwares.katana.modelo.Servico;
+import com.jpsoftwares.katana.model.Servico;
 import com.jpsoftwares.katana.repository.ServicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package com.jpsoftwares.katana.modelo;
+package com.jpsoftwares.katana.model;
 
 import jakarta.persistence.*;
 import lombok.*;

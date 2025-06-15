@@ -1,12 +1,10 @@
 package com.jpsoftwares.katana.service;
 
-import com.jpsoftwares.katana.modelo.Agendamento;
+import com.jpsoftwares.katana.model.Agendamento;
 import com.jpsoftwares.katana.repository.AgendamentoRepository;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service

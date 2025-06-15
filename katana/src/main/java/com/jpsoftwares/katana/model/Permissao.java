@@ -1,4 +1,4 @@
-package com.jpsoftwares.katana.modelo;
+package com.jpsoftwares.katana.model;
 
 import java.util.HashSet;
 import java.util.Set;

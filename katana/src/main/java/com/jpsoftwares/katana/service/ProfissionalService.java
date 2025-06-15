@@ -1,6 +1,6 @@
 package com.jpsoftwares.katana.service;
 
-import com.jpsoftwares.katana.modelo.Profissional;
+import com.jpsoftwares.katana.model.Profissional;
 import com.jpsoftwares.katana.repository.ProfissionalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

@@ -1,6 +1,6 @@
 package com.jpsoftwares.katana.controller;
 
-import com.jpsoftwares.katana.modelo.Empresa;
+import com.jpsoftwares.katana.model.Empresa;
 import com.jpsoftwares.katana.service.EmpresaService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;

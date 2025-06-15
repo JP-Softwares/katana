@@ -1,6 +1,6 @@
 package com.jpsoftwares.katana.service;
 
-import com.jpsoftwares.katana.modelo.Cargo;
+import com.jpsoftwares.katana.model.Cargo;
 import com.jpsoftwares.katana.repository.CargoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

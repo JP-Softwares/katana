@@ -6,7 +6,7 @@ import com.jpsoftwares.katana.DTO.AuthDTO.LoginResponseDTO;
 import com.jpsoftwares.katana.DTO.ProfissionalDTO.CreateProfissionalDTO;
 import com.jpsoftwares.katana.DTO.ProfissionalDTO.ReturnProfissionalDTO;
 import com.jpsoftwares.katana.config.TokenService;
-import com.jpsoftwares.katana.modelo.Profissional;
+import com.jpsoftwares.katana.model.Profissional;
 import com.jpsoftwares.katana.service.ProfissionalService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;

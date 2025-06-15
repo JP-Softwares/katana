@@ -1,6 +1,6 @@
 package com.jpsoftwares.katana.controller;
 
-import com.jpsoftwares.katana.modelo.Venda;
+import com.jpsoftwares.katana.model.Venda;
 import com.jpsoftwares.katana.service.VendaService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
