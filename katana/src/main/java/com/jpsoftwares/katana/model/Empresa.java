@@ -15,6 +15,17 @@ import lombok.*;
 @Setter
 public class Empresa {
 
+    public Empresa(String cnpj, String nomeFantasia, String razaoSocial, String estado, String cidade, String complemento, String CEP, String bairro) {
+        this.cnpj = cnpj;
+        this.nomeFantasia = nomeFantasia;
+        this.razaoSocial = razaoSocial;
+        this.estado = estado;
+        this.cidade = cidade;
+        this.complemento = complemento;
+        this.CEP = CEP;
+        this.bairro = bairro;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
