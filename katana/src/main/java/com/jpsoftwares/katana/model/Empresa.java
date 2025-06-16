@@ -34,6 +34,12 @@ public class Empresa {
     @Column(length = 255)
     private String complemento;
 
+    @Column
+    private String CEP;
+
+    @Column
+    private String bairro;
+
     // Mapeamento One-to-Many para Produtos
     @OneToMany(
         mappedBy = "empresa",
