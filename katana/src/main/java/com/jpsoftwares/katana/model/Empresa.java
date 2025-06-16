@@ -19,11 +19,14 @@ public class Empresa {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 150)
-    private String nome;
-
     @Column(nullable = false, unique = true, length = 18)
     private String cnpj;
+
+    @Column
+    private String nomeFantasia;
+
+    @Column
+    private String razaoSocial;
 
     @Column(nullable = false, length = 50)
     private String estado;
