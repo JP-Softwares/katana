@@ -70,7 +70,16 @@ public class AuthenticationController {
                 prof.getNome(),
                 prof.getEmail(),
                 prof.getRole(),
-                "Profissional"
+                "Profissional",
+                prof.getEmpresa().getId(),
+                prof.getEmpresa().getCnpj(),
+                prof.getEmpresa().getNomeFantasia(),
+                prof.getEmpresa().getRazaoSocial(),
+                prof.getEmpresa().getEstado(),
+                prof.getEmpresa().getCidade(),
+                prof.getEmpresa().getComplemento(),
+                prof.getEmpresa().getBairro(),
+                prof.getEmpresa().getCEP()
         );
         return ResponseEntity.ok(dto);
     }
