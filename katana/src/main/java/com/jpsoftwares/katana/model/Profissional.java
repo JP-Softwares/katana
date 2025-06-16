@@ -63,7 +63,7 @@ public class Profissional implements UserDetails {
     @JoinColumn(name = "cargo_id")
     private Cargo cargo;
 
-    public Profissional(String nome, String email, String senha, Roles role, String telefone, Boolean ativo) {
+    public Profissional(String nome, String email, String senha, Roles role, String telefone, Boolean ativo, Empresa empresa) {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
