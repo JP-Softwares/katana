@@ -48,10 +48,10 @@ public class ClienteController {
 
         // 1) Converter DTO de criação em entidade
         Cliente entidade = Cliente.builder()
-                .nome(dto.getNome())
-                .email(dto.getEmail())
+                .nome(dto.nome())
+                .email(dto.email())
                 // aplicar hash na senha
-                .senha(passwordEncoder.encode(dto.getSenha()))
+                .senha(passwordEncoder.encode(dto.senha()))
                 .ativo(true)
                 .build();
 

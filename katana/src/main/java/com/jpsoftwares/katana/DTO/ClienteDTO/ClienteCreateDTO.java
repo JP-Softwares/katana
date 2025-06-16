@@ -4,17 +4,8 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
-@Data
-public class ClienteCreateDTO {
+public record ClienteCreateDTO(String nome, String email,String senha) {
 
-    @NotBlank
-    private String nome;
 
-    @Email
-    @NotBlank
-    private String email;
-
-    @NotBlank
-    private String senha;
 
 }
