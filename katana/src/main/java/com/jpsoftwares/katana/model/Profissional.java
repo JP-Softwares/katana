@@ -70,6 +70,7 @@ public class Profissional implements UserDetails {
         this.role = role;
         this.telefone = telefone;
         this.ativo = ativo;
+        this.empresa = empresa;
     }
 
 
