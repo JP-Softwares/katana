@@ -28,6 +28,10 @@ public class Venda {
     @Builder.Default
     private Set<ItemVenda> itensVenda = new HashSet<>();
 
+    @OneToMany(mappedBy = "venda", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @Builder.Default
+    private Set<Agendamento> agendamentos = new HashSet<>();
+
     // Many-to-One para Profissional
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cliente_id", nullable = false)
