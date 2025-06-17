@@ -51,7 +51,7 @@ public class ProfissionalController {
         String senhaSecreta = new BCryptPasswordEncoder().encode(data.senha());
         Profissional profissional = new Profissional(data.nome(), data.email(), senhaSecreta, data.role(), data.telefone(), true, empresaService.findById(data.empresa()) );
         this.profissionalService.create(profissional);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(profissional);
     }
 
     @PutMapping
