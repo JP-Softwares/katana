@@ -3,6 +3,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import java.math.BigDecimal;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -33,9 +34,8 @@ public class Servico {
     private Boolean ativo = true;
 
     // Many-to-One para Profissional
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "profissional_id", nullable = false)
-    private Profissional profissional;
+    @ManyToMany(mappedBy = "servicos")
+    private List<Profissional> profissionais;
 
     // One-to-Many para Serviços
     @OneToMany(

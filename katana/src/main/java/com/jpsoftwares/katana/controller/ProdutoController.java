@@ -1,6 +1,7 @@
 package com.jpsoftwares.katana.controller;
 
 import com.jpsoftwares.katana.DTO.ProdutoDTO.ProdrutoCreateDTO;
+import com.jpsoftwares.katana.DTO.ProdutoDTO.ProdutoReturnDTO;
 import com.jpsoftwares.katana.model.Produto;
 import com.jpsoftwares.katana.model.Profissional;
 import com.jpsoftwares.katana.service.EmpresaService;
@@ -50,13 +51,22 @@ public class ProdutoController {
     }
 
     @PostMapping
-    public ResponseEntity<Produto> create(@RequestBody ProdrutoCreateDTO produto, Authentication authentication) {
+    public ResponseEntity<ProdutoReturnDTO> create(@RequestBody ProdrutoCreateDTO produto, Authentication authentication) {
 
         String email = authentication.getName();
         Profissional prof = (Profissional) profissionalService.findByLogin(email);
 
         Produto created = new Produto(produto.nome(), produto.descricao(), produto.valor(),true, prof.getEmpresa());
-        return ResponseEntity.ok(created);
+        produtoService.create(created);
+
+        ProdutoReturnDTO dto = new ProdutoReturnDTO(
+                created.getId(),
+                created.getNome(),
+                created.getDescricao(),
+                created.getValor(),
+                created.getAtivo()
+        );
+        return ResponseEntity.ok().body(dto);
     }
 
     @PutMapping

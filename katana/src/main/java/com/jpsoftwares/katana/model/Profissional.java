@@ -50,14 +50,13 @@ public class Profissional implements UserDetails {
     private Empresa empresa;
 
     // One-to-Many para Serviços
-    @OneToMany(
-        mappedBy = "profissional",
-        cascade = CascadeType.ALL,
-        orphanRemoval = true,
-        fetch = FetchType.LAZY
+    @ManyToMany
+    @JoinTable(
+            name = "profissional_servico",
+            joinColumns = @JoinColumn(name = "profissional_id"),
+            inverseJoinColumns = @JoinColumn(name = "servico_id")
     )
-    @Builder.Default
-    private Set<Servico> servicos = new HashSet<>();
+    private List<Servico> servicos;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cargo_id")
