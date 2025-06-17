@@ -1,10 +1,15 @@
 package com.jpsoftwares.katana.controller;
 
+import com.jpsoftwares.katana.DTO.ProdutoDTO.ProdrutoCreateDTO;
 import com.jpsoftwares.katana.model.Produto;
+import com.jpsoftwares.katana.model.Profissional;
+import com.jpsoftwares.katana.service.EmpresaService;
 import com.jpsoftwares.katana.service.ProdutoService;
+import com.jpsoftwares.katana.service.ProfissionalService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,7 +19,15 @@ import java.util.List;
 @RequestMapping("/api/produtos")
 public class ProdutoController {
 
+    @Autowired
     private final ProdutoService produtoService;
+
+
+    @Autowired
+    private EmpresaService empresaService;
+
+    @Autowired
+    private ProfissionalService profissionalService;
 
     @Autowired
     public ProdutoController(ProdutoService produtoService) {
@@ -37,8 +50,12 @@ public class ProdutoController {
     }
 
     @PostMapping
-    public ResponseEntity<Produto> create(@RequestBody Produto produto) {
-        Produto created = produtoService.create(produto);
+    public ResponseEntity<Produto> create(@RequestBody ProdrutoCreateDTO produto, Authentication authentication) {
+
+        String email = authentication.getName();
+        Profissional prof = (Profissional) profissionalService.findByLogin(email);
+
+        Produto created = new Produto(produto.nome(), produto.descricao(), produto.valor(),true, prof.getEmpresa());
         return ResponseEntity.ok(created);
     }
 
