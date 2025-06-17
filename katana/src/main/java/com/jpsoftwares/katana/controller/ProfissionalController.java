@@ -1,8 +1,6 @@
 package com.jpsoftwares.katana.controller;
 
-import com.jpsoftwares.katana.DTO.AuthDTO.RegisterDTO;
-import com.jpsoftwares.katana.DTO.ProfissionalDTO.CreateProfissionalDTO;
-import com.jpsoftwares.katana.model.Empresa;
+import com.jpsoftwares.katana.DTO.ProfissionalDTO.ProfissionalCreateDTO;
 import com.jpsoftwares.katana.model.Profissional;
 import com.jpsoftwares.katana.service.EmpresaService;
 import com.jpsoftwares.katana.service.ProfissionalService;
@@ -47,7 +45,7 @@ public class ProfissionalController {
     }
 
     @PostMapping
-    public ResponseEntity register(@RequestBody @Valid CreateProfissionalDTO data){
+    public ResponseEntity register(@RequestBody @Valid ProfissionalCreateDTO data){
         String senhaSecreta = new BCryptPasswordEncoder().encode(data.senha());
         Profissional profissional = new Profissional(data.nome(), data.email(), senhaSecreta, data.role(), data.telefone(), true, empresaService.findById(data.empresa()) );
         this.profissionalService.create(profissional);

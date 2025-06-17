@@ -1,5 +1,7 @@
 package com.jpsoftwares.katana.service;
 
+import com.jpsoftwares.katana.model.Empresa;
+import com.jpsoftwares.katana.model.Produto;
 import com.jpsoftwares.katana.model.Servico;
 import com.jpsoftwares.katana.repository.ServicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +41,10 @@ public class ServicoService {
             return null;
         }
         return servicoRepository.save(servico);
+    }
+
+    public List<Servico> findByEmpresa(Empresa empresa){
+        return servicoRepository.findByEmpresa(empresa);
     }
 
     // Método para deletar um serviço por ID

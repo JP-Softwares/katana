@@ -5,8 +5,7 @@ import com.jpsoftwares.katana.DTO.AuthDTO.AuthenticationDTO;
 import com.jpsoftwares.katana.DTO.AuthDTO.LoginResponseDTO;
 import com.jpsoftwares.katana.DTO.AuthDTO.RegisterDTO;
 import com.jpsoftwares.katana.DTO.EmpresaDTO.BasicEmpresaDTO;
-import com.jpsoftwares.katana.DTO.ProfissionalDTO.CreateProfissionalDTO;
-import com.jpsoftwares.katana.DTO.ProfissionalDTO.ReturnProfissionalDTO;
+import com.jpsoftwares.katana.DTO.ProfissionalDTO.ProfissionalReturnDTO;
 import com.jpsoftwares.katana.config.TokenService;
 import com.jpsoftwares.katana.model.Empresa;
 import com.jpsoftwares.katana.model.Profissional;
@@ -59,7 +58,7 @@ public class AuthenticationController {
     }
 
     @GetMapping("/me")
-    public ResponseEntity<ReturnProfissionalDTO> me(Authentication authentication){
+    public ResponseEntity<ProfissionalReturnDTO> me(Authentication authentication){
         String email = authentication.getName();
 
         // 2) Buscar a entidade Profissional
@@ -79,7 +78,7 @@ public class AuthenticationController {
                 prof.getEmpresa().getBairro()
         );
 
-        ReturnProfissionalDTO dto = new ReturnProfissionalDTO(
+        ProfissionalReturnDTO dto = new ProfissionalReturnDTO(
                 prof.getId(),
                 prof.getNome(),
                 prof.getEmail(),

@@ -16,6 +16,13 @@ import java.util.Set;
 @Setter
 public class Servico {
 
+    public Servico(String nome, String descricao, BigDecimal valor, Boolean ativo) {
+        this.nome = nome;
+        this.descricao = descricao;
+        this.valor = valor;
+        this.ativo = ativo;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

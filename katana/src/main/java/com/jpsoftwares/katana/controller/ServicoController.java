@@ -1,13 +1,21 @@
 package com.jpsoftwares.katana.controller;
 
+import com.jpsoftwares.katana.DTO.ProdutoDTO.ProdutoReturnDTO;
+import com.jpsoftwares.katana.DTO.ServicoDTO.ServicoCreateDTO;
+import com.jpsoftwares.katana.DTO.ServicoDTO.ServicoReturnDTO;
+import com.jpsoftwares.katana.model.Produto;
+import com.jpsoftwares.katana.model.Profissional;
 import com.jpsoftwares.katana.model.Servico;
+import com.jpsoftwares.katana.service.ProfissionalService;
 import com.jpsoftwares.katana.service.ServicoService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Tag(name = "Serviços")
 @RestController
@@ -16,15 +24,32 @@ public class ServicoController {
 
     private final ServicoService servicoService;
 
+    private ProfissionalService profissionalService;
+
     @Autowired
     public ServicoController(ServicoService servicoService) {
         this.servicoService = servicoService;
     }
 
     @GetMapping
-    public ResponseEntity<List<Servico>> getAll() {
-        List<Servico> servicos = servicoService.findAll();
-        return ResponseEntity.ok(servicos);
+    public ResponseEntity<List<ServicoReturnDTO>> getAll(Authentication authentication) {
+
+        String email = authentication.getName();
+        Profissional prof = (Profissional) profissionalService.findByLogin(email);
+
+        List<Servico> servicos = servicoService.findByEmpresa(prof.getEmpresa());
+
+        List<ServicoReturnDTO> dtos = servicos.stream()
+                .map(serv -> new ServicoReturnDTO(
+                        serv.getId(),
+                        serv.getNome(),
+                        serv.getDescricao(),
+                        serv.getValor(),
+                        serv.getAtivo()
+                ))
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(dtos);
     }
 
     @GetMapping("/{id}")
@@ -37,9 +62,22 @@ public class ServicoController {
     }
 
     @PostMapping
-    public ResponseEntity<Servico> create(@RequestBody Servico servico) {
-        Servico created = servicoService.create(servico);
-        return ResponseEntity.ok(created);
+    public ResponseEntity<ServicoReturnDTO> create(@RequestBody ServicoCreateDTO servico, Authentication authentication) {
+
+        String email = authentication.getName();
+        Profissional prof = (Profissional) profissionalService.findByLogin(email);
+
+        Servico created = new Servico(servico.nome(), servico.descricao(), servico.valor(), servico.ativo());
+        servicoService.create(created);
+
+        ServicoReturnDTO dto = new ServicoReturnDTO(
+                created.getId(),
+                created.getNome(),
+                created.getDescricao(),
+                created.getValor(),
+                created.getAtivo()
+        );
+        return ResponseEntity.ok().body(dto);
     }
 
     @PutMapping
