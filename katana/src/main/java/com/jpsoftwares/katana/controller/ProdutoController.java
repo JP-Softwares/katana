@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -37,8 +38,12 @@ public class ProdutoController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ProdutoReturnDTO>> getAll() {
-        List<Produto> produtos = produtoService.findAll();
+    public ResponseEntity<List<ProdutoReturnDTO>> getAll(Authentication authentication) {
+
+        String email = authentication.getName();
+        Profissional prof = (Profissional) profissionalService.findByLogin(email);
+
+        List<Produto> produtos = produtoService.findByEmpresa(prof.getEmpresa());
 
         List<ProdutoReturnDTO> dtos = produtos.stream()
                 .map(prod -> new ProdutoReturnDTO(

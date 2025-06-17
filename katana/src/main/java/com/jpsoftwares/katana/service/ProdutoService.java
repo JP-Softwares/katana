@@ -1,5 +1,6 @@
 package com.jpsoftwares.katana.service;
 
+import com.jpsoftwares.katana.model.Empresa;
 import com.jpsoftwares.katana.model.Produto;
 import com.jpsoftwares.katana.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,10 @@ public class ProdutoService {
     public Produto findById(Long id) {
         return produtoRepository.findById(id)
                 .orElse(null);
+    }
+
+    public List<Produto> findByEmpresa(Empresa empresa){
+        return produtoRepository.findByEmpresa(empresa);
     }
 
     // Método para criar um novo produto
