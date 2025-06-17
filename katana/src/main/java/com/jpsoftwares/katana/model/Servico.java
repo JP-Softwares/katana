@@ -41,10 +41,6 @@ public class Servico {
     @Builder.Default
     private Boolean ativo = true;
 
-    // Many-to-One para Profissional
-    @ManyToMany(mappedBy = "servicos")
-    private List<Profissional> profissionais;
-
     // One-to-Many para Serviços
     @OneToMany(
         mappedBy = "servico",

@@ -22,9 +22,12 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/servicos")
 public class ServicoController {
 
+
+    @Autowired
     private final ServicoService servicoService;
 
-    private ProfissionalService profissionalService;
+    @Autowired
+    private  ProfissionalService profissionalService;
 
     @Autowired
     public ServicoController(ServicoService servicoService) {
