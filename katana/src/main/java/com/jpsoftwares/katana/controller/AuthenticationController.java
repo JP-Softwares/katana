@@ -4,6 +4,7 @@ package com.jpsoftwares.katana.controller;
 import com.jpsoftwares.katana.DTO.AuthDTO.AuthenticationDTO;
 import com.jpsoftwares.katana.DTO.AuthDTO.LoginResponseDTO;
 import com.jpsoftwares.katana.DTO.AuthDTO.RegisterDTO;
+import com.jpsoftwares.katana.DTO.EmpresaDTO.BasicEmpresaDTO;
 import com.jpsoftwares.katana.DTO.ProfissionalDTO.CreateProfissionalDTO;
 import com.jpsoftwares.katana.DTO.ProfissionalDTO.ReturnProfissionalDTO;
 import com.jpsoftwares.katana.config.TokenService;
@@ -64,13 +65,9 @@ public class AuthenticationController {
         // 2) Buscar a entidade Profissional
         Profissional prof = (Profissional) profissionalService.findByLogin(email);
 
+
         // 3) Mapear para DTO
-        ReturnProfissionalDTO dto = new ReturnProfissionalDTO(
-                prof.getId(),
-                prof.getNome(),
-                prof.getEmail(),
-                prof.getRole(),
-                "Profissional",
+        BasicEmpresaDTO empresaDTO = new BasicEmpresaDTO(
                 prof.getEmpresa().getId(),
                 prof.getEmpresa().getCnpj(),
                 prof.getEmpresa().getNomeFantasia(),
@@ -78,8 +75,17 @@ public class AuthenticationController {
                 prof.getEmpresa().getEstado(),
                 prof.getEmpresa().getCidade(),
                 prof.getEmpresa().getComplemento(),
-                prof.getEmpresa().getBairro(),
-                prof.getEmpresa().getCEP()
+                prof.getEmpresa().getCEP(),
+                prof.getEmpresa().getBairro()
+        );
+
+        ReturnProfissionalDTO dto = new ReturnProfissionalDTO(
+                prof.getId(),
+                prof.getNome(),
+                prof.getEmail(),
+                prof.getRole(),
+                "Profissional",
+                empresaDTO
         );
         return ResponseEntity.ok(dto);
     }
