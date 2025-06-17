@@ -16,11 +16,12 @@ import java.util.Set;
 @Setter
 public class Servico {
 
-    public Servico(String nome, String descricao, BigDecimal valor, Boolean ativo) {
+    public Servico(String nome, String descricao, BigDecimal valor, Boolean ativo, Empresa empresa) {
         this.nome = nome;
         this.descricao = descricao;
         this.valor = valor;
         this.ativo = ativo;
+        this.empresa = empresa;
     }
 
     @Id
