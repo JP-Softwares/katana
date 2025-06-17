@@ -1,6 +1,7 @@
 package com.jpsoftwares.katana.service;
 
 import com.jpsoftwares.katana.model.Agendamento;
+import com.jpsoftwares.katana.model.Empresa;
 import com.jpsoftwares.katana.repository.AgendamentoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,6 +49,11 @@ public class AgendamentoService {
         }
         agendamentoRepository.deleteById(id);
         return true;
+    }
+
+
+    public List<Agendamento> findByServico_Empresa(Empresa empresa) {
+        return agendamentoRepository.findByServico_Empresa(empresa);
     }
 }
 

@@ -24,11 +24,13 @@ public class Agendamento {
     @Column(name = "data_hora_final", nullable = false)
     private LocalDateTime dataHoraFinal;
 
+    private String status;
+
     // Relacionamentos (Cliente, Serviço, Profissional) podem ser adicionados aqui
 
     // Mapeamento Many-to-One para Cliente
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cliente_id", nullable = false)
+    @JoinColumn(name = "cliente_id", nullable = true)
     private Cliente cliente;
 
     // Mapeamento Many-to-One para Serviço
@@ -39,4 +41,12 @@ public class Agendamento {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "venda_id", nullable = true)
     private Venda venda;
+
+    public Agendamento(LocalDateTime dataHoraInicial, LocalDateTime dataHoraFinal,String status, Cliente cliente, Servico servico) {
+        this.dataHoraInicial = dataHoraInicial;
+        this.dataHoraFinal = dataHoraFinal;
+        this.status = status;
+        this.cliente = cliente;
+        this.servico = servico;
+    }
 }

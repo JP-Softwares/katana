@@ -1,4 +1,6 @@
 package com.jpsoftwares.katana.DTO.AgendamentoDTO;
 
-public record AgendamentoReturnDTO() {
+import java.time.LocalDateTime;
+
+public record AgendamentoReturnDTO(Long id, LocalDateTime dataHoraInicial, LocalDateTime dataHoraFinal,String status, Long cliente_id, Long servico_id) {
 }
