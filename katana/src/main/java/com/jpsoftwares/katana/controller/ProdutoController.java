@@ -54,12 +54,19 @@ public class ProdutoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Produto> getById(@PathVariable Long id) {
+    public ResponseEntity<ProdutoReturnDTO> getById(@PathVariable Long id) {
         Produto produto = produtoService.findById(id);
         if (produto == null) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(produto);
+        ProdutoReturnDTO dto = new ProdutoReturnDTO(
+                produto.getId(),
+                produto.getNome(),
+                produto.getDescricao(),
+                produto.getValor(),
+                produto.getAtivo()
+        );
+        return ResponseEntity.ok(dto);
     }
 
     @PostMapping
