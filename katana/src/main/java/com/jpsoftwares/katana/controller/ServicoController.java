@@ -70,7 +70,7 @@ public class ServicoController {
         String email = authentication.getName();
         Profissional prof = (Profissional) profissionalService.findByLogin(email);
 
-        Servico created = new Servico(servico.nome(), servico.descricao(), servico.valor(), servico.ativo(), prof.getEmpresa());
+        Servico created = new Servico(servico.nome(), servico.descricao(), servico.valor(), true, prof.getEmpresa());
         servicoService.create(created);
 
         ServicoReturnDTO dto = new ServicoReturnDTO(

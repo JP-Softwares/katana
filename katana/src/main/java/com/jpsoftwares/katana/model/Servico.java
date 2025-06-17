@@ -54,4 +54,9 @@ public class Servico {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "empresa_id")
     private Empresa empresa;
+
+    // Relacionamento com ItemVenda
+    @OneToMany(mappedBy = "servico", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @Builder.Default
+    private Set<ItemVenda> itensVenda = new HashSet<>();
 }

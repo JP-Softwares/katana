@@ -59,6 +59,7 @@ public class AuthenticationController {
 
     @GetMapping("/me")
     public ResponseEntity<ProfissionalReturnDTO> me(Authentication authentication){
+
         String email = authentication.getName();
 
         // 2) Buscar a entidade Profissional

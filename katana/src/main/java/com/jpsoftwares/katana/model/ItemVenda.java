@@ -24,11 +24,20 @@ public class ItemVenda {
     @Column(nullable = false)
     private BigDecimal valor;
 
+    @Column(nullable = false)
+    private String tipo;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "venda_id", nullable = false)
     private Venda venda;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "produto_id", nullable = false)
+    @JoinColumn(name = "produto_id", nullable = true)
     private Produto produto;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "servico_id", nullable = true)
+    private Servico servico;
+
+
 }

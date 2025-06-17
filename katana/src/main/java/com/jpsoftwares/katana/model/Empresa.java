@@ -80,4 +80,12 @@ public class Empresa {
     )
     @Builder.Default
     private List<Servico> servicos = new ArrayList<>();
+
+    @OneToMany(
+            mappedBy = "empresa",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    @Builder.Default
+    private List<Venda> vendas = new ArrayList<>();
 }

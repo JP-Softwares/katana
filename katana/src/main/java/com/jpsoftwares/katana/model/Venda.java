@@ -32,4 +32,8 @@ public class Venda {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cliente_id", nullable = false)
     private Cliente cliente;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cempresa_id")
+    private Empresa empresa;
 }
