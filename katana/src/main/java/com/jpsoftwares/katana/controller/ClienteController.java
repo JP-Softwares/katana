@@ -72,7 +72,7 @@ public class ClienteController {
 
 
         // 4) Retornar 200 OK com o DTO
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(resposta);
     }
 
     @PutMapping
