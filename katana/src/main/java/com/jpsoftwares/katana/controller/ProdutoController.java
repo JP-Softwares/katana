@@ -14,6 +14,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Tag(name = "Produto")
 @RestController
@@ -36,9 +37,20 @@ public class ProdutoController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Produto>> getAll() {
+    public ResponseEntity<List<ProdutoReturnDTO>> getAll() {
         List<Produto> produtos = produtoService.findAll();
-        return ResponseEntity.ok(produtos);
+
+        List<ProdutoReturnDTO> dtos = produtos.stream()
+                .map(prod -> new ProdutoReturnDTO(
+                        prod.getId(),
+                        prod.getNome(),
+                        prod.getDescricao(),
+                        prod.getValor(),
+                        prod.getAtivo()
+                ))
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(dtos);
     }
 
     @GetMapping("/{id}")
