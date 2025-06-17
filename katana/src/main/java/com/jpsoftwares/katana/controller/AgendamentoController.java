@@ -66,12 +66,21 @@ public class AgendamentoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Agendamento> getById(@PathVariable Long id) {
+    public ResponseEntity<AgendamentoReturnDTO> getById(@PathVariable Long id) {
         Agendamento agendamento = agendamentoService.findById(id);
         if (agendamento == null) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(agendamento);
+        AgendamentoReturnDTO dto = new AgendamentoReturnDTO(
+                agendamento.getId(),
+                agendamento.getDataHoraInicial(),
+                agendamento.getDataHoraFinal(),
+                agendamento.getStatus(),
+                agendamento.getCliente().getId(),
+                agendamento.getServico().getId()
+        );
+
+        return ResponseEntity.ok(dto);
     }
 
     @PostMapping

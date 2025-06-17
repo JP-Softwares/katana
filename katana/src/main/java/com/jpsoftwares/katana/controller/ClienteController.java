@@ -2,6 +2,7 @@ package com.jpsoftwares.katana.controller;
 
 import com.jpsoftwares.katana.DTO.ClienteDTO.ClienteCreateDTO;
 import com.jpsoftwares.katana.DTO.ClienteDTO.ClienteResponseDTO;
+import com.jpsoftwares.katana.DTO.ServicoDTO.ServicoReturnDTO;
 import com.jpsoftwares.katana.model.Cliente;
 import com.jpsoftwares.katana.service.ClienteService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -12,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Tag(name = "Cliente")
 @RestController
@@ -28,9 +30,19 @@ public class ClienteController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Cliente>> getAll() {
+    public ResponseEntity<List<ClienteResponseDTO>> getAll() {
         List<Cliente> clientes = clienteService.findAll();
-        return ResponseEntity.ok(clientes);
+
+
+        List<ClienteResponseDTO> dtos = clientes.stream()
+                .map(client -> new ClienteResponseDTO(
+                        client.getId(),
+                        client.getNome(),
+                        client.getEmail()
+                ))
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(dtos);
     }
 
     @GetMapping("/{id}")
@@ -43,14 +55,11 @@ public class ClienteController {
     }
 
     @PostMapping
-    public ResponseEntity<ClienteResponseDTO> create(
-            @Valid @RequestBody ClienteCreateDTO dto) {
+    public ResponseEntity<ClienteResponseDTO> create(@Valid @RequestBody ClienteCreateDTO dto) {
 
-        // 1) Converter DTO de criação em entidade
         Cliente entidade = Cliente.builder()
                 .nome(dto.nome())
                 .email(dto.email())
-                // aplicar hash na senha
                 .senha(passwordEncoder.encode(dto.senha()))
                 .ativo(true)
                 .build();
@@ -63,7 +72,7 @@ public class ClienteController {
 
 
         // 4) Retornar 200 OK com o DTO
-        return ResponseEntity.ok(resposta);
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping
