@@ -93,12 +93,21 @@ public class AgendamentoController {
     }
 
     @PutMapping
-    public ResponseEntity<Agendamento> update(@RequestBody Agendamento agendamento) {
-        Agendamento updated = agendamentoService.update(agendamento);
+    public ResponseEntity<AgendamentoReturnDTO> update(@RequestBody AgendamentoCreateDTO agendamento, @PathVariable Long id) {
+        Agendamento updated = agendamentoService.update(id, agendamento);
         if (updated == null) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(updated);
+
+        AgendamentoReturnDTO dto = new AgendamentoReturnDTO(
+                updated.getId(),
+                updated.getDataHoraInicial(),
+                updated.getDataHoraFinal(),
+                updated.getStatus(),
+                updated.getCliente().getId(),
+                updated.getServico().getId()
+        );
+        return ResponseEntity.ok(dto);
     }
 
     @DeleteMapping("/{id}")

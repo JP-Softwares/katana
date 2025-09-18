@@ -1,5 +1,6 @@
 package com.jpsoftwares.katana.service;
 
+import com.jpsoftwares.katana.DTO.AgendamentoDTO.AgendamentoCreateDTO;
 import com.jpsoftwares.katana.model.Agendamento;
 import com.jpsoftwares.katana.model.Empresa;
 import com.jpsoftwares.katana.repository.AgendamentoRepository;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AgendamentoService {
@@ -35,11 +37,26 @@ public class AgendamentoService {
     }
 
     // Método para atualizar um agendamento existente
-    public Agendamento update(Agendamento agendamento) {
-        if (agendamento.getId() == null || !agendamentoRepository.existsById(agendamento.getId())) {
+    public Agendamento update(Long id, AgendamentoCreateDTO dto) {
+        if (id == null || !agendamentoRepository.existsById(id)) {
             return null;
         }
-        return agendamentoRepository.save(agendamento);
+       Agendamento agenda = agendamentoRepository.findById(id).orElseThrow();
+
+        if(dto.dataHoraFinal() != null){
+            agenda.setDataHoraFinal(dto.dataHoraFinal());
+        }
+
+        if(dto.dataHoraInicial() != null){
+            agenda.setDataHoraInicial(dto.dataHoraInicial());
+        }
+
+        if(dto.status() != null){
+            agenda.setStatus(dto.status());
+        }
+
+
+        return agendamentoRepository.save(agenda);
     }
 
     // Método para deletar um agendamento por ID
@@ -47,6 +64,7 @@ public class AgendamentoService {
         if (!agendamentoRepository.existsById(id)) {
             return false;
         }
+
         agendamentoRepository.deleteById(id);
         return true;
     }
