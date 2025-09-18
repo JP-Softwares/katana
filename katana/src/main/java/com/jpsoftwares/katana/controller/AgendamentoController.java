@@ -92,7 +92,7 @@ public class AgendamentoController {
         return ResponseEntity.ok().body(dto);
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     public ResponseEntity<AgendamentoReturnDTO> update(@RequestBody AgendamentoCreateDTO agendamento, @PathVariable Long id) {
         Agendamento updated = agendamentoService.update(id, agendamento);
         if (updated == null) {
