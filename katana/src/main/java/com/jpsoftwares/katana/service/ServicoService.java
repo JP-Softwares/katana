@@ -1,5 +1,6 @@
 package com.jpsoftwares.katana.service;
 
+import com.jpsoftwares.katana.DTO.ServicoDTO.ServicoCreateDTO;
 import com.jpsoftwares.katana.model.Empresa;
 import com.jpsoftwares.katana.model.Produto;
 import com.jpsoftwares.katana.model.Servico;
@@ -36,11 +37,24 @@ public class ServicoService {
     }
 
     // Método para atualizar um serviço existente
-    public Servico update(Servico servico) {
-        if (servico.getId() == null || !servicoRepository.existsById(servico.getId())) {
+    public Servico update(Long id, ServicoCreateDTO dto) {
+        if (id == null || !servicoRepository.existsById(id)) {
             return null;
         }
-        return servicoRepository.save(servico);
+        Servico serv = servicoRepository.findById(id).orElseThrow();
+
+        if(dto.nome() != null){
+            serv.setNome(dto.nome());
+        }
+        if(dto.descricao() != null){
+            serv.setDescricao(dto.descricao());
+        }
+
+        if(dto.valor() != null){
+            serv.setValor(dto.valor());
+        }
+
+        return servicoRepository.save(serv);
     }
 
     public List<Servico> findByEmpresa(Empresa empresa){

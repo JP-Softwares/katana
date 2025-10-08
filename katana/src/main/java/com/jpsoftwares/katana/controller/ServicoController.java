@@ -1,5 +1,6 @@
 package com.jpsoftwares.katana.controller;
 
+import com.jpsoftwares.katana.DTO.ProdutoDTO.ProdrutoCreateDTO;
 import com.jpsoftwares.katana.DTO.ProdutoDTO.ProdutoReturnDTO;
 import com.jpsoftwares.katana.DTO.ServicoDTO.ServicoCreateDTO;
 import com.jpsoftwares.katana.DTO.ServicoDTO.ServicoReturnDTO;
@@ -83,13 +84,21 @@ public class ServicoController {
         return ResponseEntity.ok().body(dto);
     }
 
-    @PutMapping
-    public ResponseEntity<Servico> update(@RequestBody Servico servico) {
-        Servico updated = servicoService.update(servico);
+    @PutMapping("/{id}")
+    public ResponseEntity<ServicoReturnDTO> update(@RequestBody ServicoCreateDTO servico, @PathVariable Long id) {
+        Servico updated = servicoService.update(id, servico);
         if (updated == null) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(updated);
+
+        ServicoReturnDTO dto = new ServicoReturnDTO(
+                updated.getId(),
+                updated.getNome(),
+                updated.getDescricao(),
+                updated.getValor(),
+                updated.getAtivo()
+        );
+        return ResponseEntity.ok(dto);
     }
 
     @DeleteMapping("/{id}")
