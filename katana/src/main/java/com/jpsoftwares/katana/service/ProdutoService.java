@@ -1,5 +1,6 @@
 package com.jpsoftwares.katana.service;
 
+import com.jpsoftwares.katana.DTO.ProdutoDTO.ProdrutoCreateDTO;
 import com.jpsoftwares.katana.model.Empresa;
 import com.jpsoftwares.katana.model.Produto;
 import com.jpsoftwares.katana.repository.ProdutoRepository;
@@ -39,11 +40,23 @@ public class ProdutoService {
     }
 
     // Método para atualizar um produto existente
-    public Produto update(Produto produto) {
-        if (produto.getId() == null || !produtoRepository.existsById(produto.getId())) {
+    public Produto update(Long id, ProdrutoCreateDTO dto) {
+        if (id == null || !produtoRepository.existsById(id)) {
             return null;
         }
-        return produtoRepository.save(produto);
+        Produto prod = produtoRepository.findById(id).orElseThrow();
+
+        if(dto.nome() != null){
+            prod.setNome(dto.nome());
+        }
+        if(dto.descricao() != null){
+            prod.setDescricao(dto.descricao());
+        }
+
+        if(dto.valor() != null){
+            prod.setValor(dto.valor());
+        }
+        return produtoRepository.save(prod);
     }
 
     // Método para deletar um produto por ID

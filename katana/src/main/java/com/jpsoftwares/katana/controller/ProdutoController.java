@@ -1,7 +1,10 @@
 package com.jpsoftwares.katana.controller;
 
+import com.jpsoftwares.katana.DTO.AgendamentoDTO.AgendamentoCreateDTO;
+import com.jpsoftwares.katana.DTO.AgendamentoDTO.AgendamentoReturnDTO;
 import com.jpsoftwares.katana.DTO.ProdutoDTO.ProdrutoCreateDTO;
 import com.jpsoftwares.katana.DTO.ProdutoDTO.ProdutoReturnDTO;
+import com.jpsoftwares.katana.model.Agendamento;
 import com.jpsoftwares.katana.model.Produto;
 import com.jpsoftwares.katana.model.Profissional;
 import com.jpsoftwares.katana.service.EmpresaService;
@@ -93,13 +96,21 @@ public class ProdutoController {
         return ResponseEntity.ok().body(dto);
     }
 
-    @PutMapping
-    public ResponseEntity<Produto> update(@RequestBody Produto produto) {
-        Produto updated = produtoService.update(produto);
+    @PutMapping("/{id}")
+    public ResponseEntity<ProdutoReturnDTO> update(@RequestBody ProdrutoCreateDTO produto, @PathVariable Long id) {
+        Produto updated = produtoService.update(id, produto);
         if (updated == null) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(updated);
+
+        ProdutoReturnDTO dto = new ProdutoReturnDTO(
+                updated.getId(),
+                updated.getNome(),
+                updated.getDescricao(),
+                updated.getValor(),
+                updated.getAtivo()
+        );
+        return ResponseEntity.ok(dto);
     }
 
     @DeleteMapping("/{id}")
